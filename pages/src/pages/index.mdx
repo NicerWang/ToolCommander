@@ -1,0 +1,243 @@
+---
+layout: ../layouts/Layout.astro
+title: "From Allies to Adversaries: Manipulating LLM Tool-Calling through Adversarial Injection"
+description: Research on security vulnerabilities in LLM tool-calling systems through adversarial tool injection.
+favicon: favicon.svg
+thumbnail: screenshot.png
+---
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import HighlightedSection from "../components/HighlightedSection.astro";
+import SmallCaps from "../components/SmallCaps.astro";
+import Figure from "../components/Figure.astro";
+import Image from "../components/Image.astro";
+import TwoColumns from "../components/TwoColumns.astro";
+import LaTeX from "../components/LaTeX.astro";
+import toolcommander_framework_figure from "../assets/1-commander.webp";
+
+<Header
+  title={frontmatter.title}
+  authors={[
+    {
+      name: "Haowei Wang",
+      institution: "",
+      notes: ["1,2,3*"],
+    },
+    {
+      name: "Rupeng Zhang",
+      institution: "",
+      notes: ["1,2,3*"],
+    },
+    {
+      name: "Junjie Wang",
+      institution: "",
+      notes: ["1,2,3†"],
+    },
+    {
+      name: "Mingyang Li",
+      institution: "",
+      notes: ["1,2,3†"],
+    },
+    {
+      name: "Yuekai Huang",
+      institution: "",
+      notes: ["1,2,3"],
+    },
+    {
+      name: "Dandan Wang",
+      institution: "",
+      notes: ["1,2,3†"],
+    },
+    {
+      name: "Qing Wang",
+      institution: "",
+      notes: ["1,2,3†"],
+    },
+  ]}
+  conference="2025 Annual Conference of the Nations of the Americas Chapter of the ACL"
+  notes={[
+    {
+      symbol: "1",
+      text: "State Key Laboratory of Intelligent Game, Beijing, China",
+    },
+    {
+      symbol: "2",
+      text: "Institute of Software, Chinese Academy of Sciences, Beijing, China",
+    },
+    {
+      symbol: "3",
+      text: "University of Chinese Academy of Sciences, Beijing, China",
+    },
+    {
+      symbol: "*",
+      text: "Equal contribution",
+    },
+    {
+      symbol: "†",
+      text: "Corresponding authors",
+    },
+  ]}
+  links={[
+    {
+      name: "Paper",
+      url: "https://arxiv.org/pdf/2412.10198",
+      icon: "ri:file-pdf-2-line",
+    },
+    {
+      name: "Code",
+      url: "https://github.com/NicerWang/ToolCommander",
+      icon: "ri:github-line",
+    },
+    {
+      name: "arXiv",
+      url: "https://arxiv.org/abs/2412.10198",
+      icon: "academicons:arxiv",
+    },
+  ]}
+/>
+
+<HighlightedSection>
+
+## TL;DR
+
+We introduce ToolCommander, a framework that exploits vulnerabilities in LLM tool-calling systems, enabling privacy theft, denial-of-service attacks, and business competition manipulation through adversarial tool injection.
+
+</HighlightedSection>
+
+<Figure caption="">
+  <Image
+    source={toolcommander_framework_figure}
+    altText="Diagram of the transformer deep learning architecture."
+  />
+</Figure>
+
+## Abstract
+
+Tool-calling has changed Large Language Model (LLM) applications by integrating external tools, significantly enhancing their functionality across diverse tasks. However, this integration also introduces new security vulnerabilities, particularly in the tool scheduling mechanisms of LLM, which have not been extensively studied. To fill this gap, we present ToolCommander, a novel framework designed to exploit vulnerabilities in LLM tool-calling systems through adversarial tool injection. Our framework employs a well-designed two-stage attack strategy. Firstly, it injects malicious tools to collect user queries, then dynamically updates the injected tools based on the stolen information to enhance subsequent attacks. These stages enable ToolCommander to execute privacy theft, launch denial-of-service attacks, and even manipulate business competition by triggering unscheduled tool-calling. Notably, the ASR reaches 91.67% for privacy theft and hits 100% for denial-of-service and unscheduled tool calling in certain cases. Our work demonstrates that these vulnerabilities can lead to severe consequences beyond simple misuse of tool-calling systems, underscoring the urgent need for robust defensive strategies to secure LLM Tool-calling systems.
+
+## Key Findings
+
+Our research uncovered several critical vulnerabilities in LLM tool-calling systems:
+
+1.**Privacy Vulnerabilities**: Through carefully crafted _Manipulator Tools_, attackers can collect sensitive user queries with high success rates across multiple LLMs.
+
+2.**Tool Scheduling Exploitation**: The framework successfully manipulates tool selection processes, enabling both denial-of-service attacks and forced tool execution.
+
+3.**Cross-Model Effectiveness**: <strong>ToolCommander</strong> demonstrates high attack success rates across various LLM implementations, including GPT, Llama3, and Qwen2.
+
+## Technical Approach
+
+Our framework operates in two distinct stages:
+
+### Stage 1: Target Collection
+
+The initial stage focuses on gathering user queries through privacy theft attacks:
+
+- Injection of specialized _Manipulator Tools_ designed to capture user queries
+- Continuous refinement of attack strategies based on collected data
+- High success rates in query collection across different LLM platforms
+
+### Stage 2: Tool Scheduling Disruption
+
+The second stage leverages collected information to execute advanced attacks:
+
+- Implementation of denial-of-service (DoS) attacks against legitimate tools
+- Manipulation of tool selection processes through unscheduled tool-calling
+- Strategic optimization of attack patterns based on Stage 1 insights
+
+### Constructing Manipulator Tools
+
+For white-box attacks, we employ the Multi Coordinate Gradient (MCG) method to optimize tool descriptions for maximum effectiveness:
+
+- **Initialization**: The process begins with a base adversarial suffix (typically a sequence of special characters)
+- **Iterative Optimization**: MCG performs simultaneous updates across multiple coordinates in the embedding space
+- **Similarity Maximization**: The algorithm optimizes the cosine similarity between tool descriptions and target queries
+- **Convergence**: The process continues until reaching a maximum iteration count (64 steps)
+
+For black-box attacks, we utilize use the target queries directly as the adversarial tool descriptions suffix to maximize semantic similarity.
+
+## Results
+
+Our experimental results demonstrate the effectiveness of <strong>ToolCommander</strong> across different scenarios:
+
+### Stage 1: Privacy Theft Performance
+
+Our privacy theft attacks show varying effectiveness across different configurations and keywords:
+
+#### Stage 1: Privacy Theft Success Rates
+
+Impact on privacy theft attacks across different keywords and tool configurations:
+
+- **ToolBench Retriever**: Shows moderate retrieval rates (42-58%), demonstrates more resilience against attacks
+- **Contriever**: Exhibits higher vulnerability with retrieval rates of 80-92%, making it more susceptible to privacy theft
+
+| Keyword | Retriever  | <LaTeX formula="ASR_{PT}" /> |  GPT   | Llama3 | Qwen2  |
+| :------ | :--------- | :--------------------------: | :----: | :----: | :----: |
+| YouTube | ToolBench  |            42.11%            | 42.11% | 36.85% | 14.04% |
+|         | Contriever |            82.46%            | 75.44% | 61.40% | 14.04% |
+| Email   | ToolBench  |            50.00%            | 50.00% | 23.91% | 13.77% |
+|         | Contriever |            80.43%            | 78.26% | 54.35% | 15.22% |
+| Stock   | ToolBench  |            57.64%            | 56.25% | 50.70% | 23.61% |
+|         | Contriever |            91.67%            | 91.67% | 88.19% | 38.54% |
+
+### Stage 2: Attack Success Rates of Denial-of-Service and Unscheduled Tool Calling
+
+The second stage demonstrates varying success rates across different attack types:
+
+#### _Manipulation Tool_ Calling Success
+
+- **ToolBench Configuration**: Achieves high success rates (89-96%) with GPT
+- **Qwen2 Resilience**: Shows better resistance with lower success rates (33-60%)
+
+#### Denial of Service (DoS)
+
+- **High Success with GPT**: Achieves 100% success across all keywords
+- **Variable Performance**: Llama3 shows lower susceptibility (6-41%)
+
+#### Unscheduled Tool Calling (UTC)
+
+- **High Success with Llama3**: Achieves 80-100% success rates
+- **Variable Performance**: GPT / Qwen2 shows mixed results (0-100%) across keywords
+
+| Attack Type        | Retriever | Model  | YouTube | Email  | Stock  |
+| :----------------- | :-------- | :----- | :-----: | :----: | :----: |
+| Manipulator Called | ToolBench | GPT    | 95.45%  | 96.55% | 93.85% |
+|                    |           | Llama3 | 88.00%  | 68.18% | 89.29% |
+|                    |           | Qwen2  | 42.11%  | 38.46% | 60.00% |
+| DoS                | ToolBench | GPT    |  100%   |  100%  |  100%  |
+|                    |           | Llama3 | 41.18%  | 34.62% | 6.67%  |
+|                    |           | Qwen2  |  100%   | 71.43% | 88.00% |
+| UTC                | ToolBench | GPT    |  100%   | 33.33% | 42.86% |
+|                    |           | Llama3 |  100%   |  100%  | 80.00% |
+|                    |           | Qwen2  | 50.00%  |  100%  | 0.00%  |
+
+For more detailed results, please refer to the full paper.
+
+### Key Observations
+
+1. **Model Vulnerability**: GPT shows consistent vulnerability across attack types, while Qwen2 demonstrates better resilience. We suspect this difference may be due to the underlying instruction-following abilities of the models.
+2. **Retriever Impact**: The choice of retriever significantly affects attack success, with Contriever showing higher susceptibility.
+3. **Keyword Influence**: Stock-related queries generally show higher success rates in privacy theft but lower rates in UTC attacks.
+
+## Conclusion
+
+In this work, we explored the vulnerabilities of LLM tool-calling systems to malicious tool injection attacks using the **ToolCommander** framework. Through comprehensive experiments, we demonstrated that even sophisticated models like GPT and Llama3 are susceptible to privacy theft, denial-of-service, and unscheduled tool-calling attacks when paired with general-purpose retrieval mechanisms.
+
+Our findings highlight the importance and the need for more robust mechanisms to mitigate the risks posed by malicious tools. As LLMs continue to integrate with external tools, ensuring their security becomes increasingly critical.
+
+Future work must prioritize security in tool-augmented LLMs to enable robust and trustworthy human-AI collaboration. Research could focus on improving attack stealthiness, such as optimizing multiple fields in the Tool JSON schema or designing triggers to activate malicious content. Investigating how LLMs’ strong instruction-following capabilities may inadvertently increase their vulnerability to injection manipulation can shed light on the mechanisms behind this risk and guide the development of effective countermeasures.
+
+## BibTeX Citation
+
+```bibtex
+@misc{wang2024alliesadversariesmanipulatingllm,
+      title={From Allies to Adversaries: Manipulating LLM Tool-Calling through Adversarial Injection},
+      author={Haowei Wang and Rupeng Zhang and Junjie Wang and Mingyang Li and Yuekai Huang and Dandan Wang and Qing Wang},
+      year={2024},
+      eprint={2412.10198},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR},
+      url={https://arxiv.org/abs/2412.10198},
+}
+```
