@@ -4,12 +4,15 @@
 
 This repository contains the official implementation of the paper, "**From Allies to Adversaries: Manipulating LLM Tool Scheduling through Adversarial Injection**". The paper introduces **ToolCommander**, a novel framework that identifies and exploits vulnerabilities in the tool scheduling mechanisms of Large Language Model (LLM) agents. By leveraging adversarial tool injection, ToolCommander can lead to privacy theft, denial-of-service (DoS) attacks, and the manipulation of tool-calling behaviors.
 
+![ToolCommander](./pages/src/assets/1-commander.webp)
+
 ## Table of Contents
 
 - [Data](#data)
 - [Prerequisites](#prerequisites)
 - [Usage](#usage)
 - [Baselines](#baselines)
+- [Citation](#citation)
 
 ---
 
@@ -22,16 +25,18 @@ g1_<train/eval>_<a/b/c>.json
 ```
 
 Where:
+
 - `g1` refers to the original category from the **ToolBench** dataset.
 - `train` and `eval` denote the training and evaluation sets, respectively.
 - `a`, `b`, and `c` represent different keywords used to generate the data:
-    - `a`: **YouTube**
-    - `b`: **Email**
-    - `c`: **Stock**
+  - `a`: **YouTube**
+  - `b`: **Email**
+  - `c`: **Stock**
 
 ### ToolBench Dataset
 
 In addition to the provided data, you will need to download the **ToolBench** dataset from its [official repository](https://github.com/OpenBMB/ToolBench). Specifically, you will need the following components:
+
 - `corpus.tsv`
 - `tools` folder
 
@@ -89,7 +94,7 @@ The results will be printed directly in the console.
 
 ## Baselines
 
-We compare ToolCommander against the `PoisonedRAG` baseline. For more details, visit the [PoisonedRAG repository](https://github.com/sleeepeer/PoisonedRAG). 
+We compare ToolCommander against the `PoisonedRAG` baseline. For more details, visit the [PoisonedRAG repository](https://github.com/sleeepeer/PoisonedRAG).
 
 ### Baseline Data
 
@@ -105,4 +110,20 @@ To evaluate the baseline performance, run the following command:
 
 ```bash
 python evaluate.py --data_path data/g1_train_{a/b/c}.json --attack_path data/g1_train_{a/b/c}_poisonedRAG_generated.pkl
+```
+
+## Citation
+
+If you find this work useful, please consider citing the following paper:
+
+```bibtex
+@misc{wang2024alliesadversariesmanipulatingllm,
+      title={From Allies to Adversaries: Manipulating LLM Tool-Calling through Adversarial Injection},
+      author={Haowei Wang and Rupeng Zhang and Junjie Wang and Mingyang Li and Yuekai Huang and Dandan Wang and Qing Wang},
+      year={2024},
+      eprint={2412.10198},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR},
+      url={https://arxiv.org/abs/2412.10198},
+}
 ```
