@@ -117,13 +117,26 @@ python evaluate.py --data_path data/g1_train_{a/b/c}.json --attack_path data/g1_
 If you find this work useful, please consider citing the following paper:
 
 ```bibtex
-@misc{wang2024alliesadversariesmanipulatingllm,
-      title={From Allies to Adversaries: Manipulating LLM Tool-Calling through Adversarial Injection},
-      author={Haowei Wang and Rupeng Zhang and Junjie Wang and Mingyang Li and Yuekai Huang and Dandan Wang and Qing Wang},
-      year={2024},
-      eprint={2412.10198},
-      archivePrefix={arXiv},
-      primaryClass={cs.CR},
-      url={https://arxiv.org/abs/2412.10198},
+@inproceedings{zhang-etal-2025-allies,
+    title = "From Allies to Adversaries: Manipulating {LLM} Tool-Calling through Adversarial Injection",
+    author = "Zhang, Rupeng  and
+      Wang, Haowei  and
+      Wang, Junjie  and
+      Li, Mingyang  and
+      Huang, Yuekai  and
+      Wang, Dandan  and
+      Wang, Qing",
+    editor = "Chiruzzo, Luis  and
+      Ritter, Alan  and
+      Wang, Lu",
+    booktitle = "Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)",
+    month = apr,
+    year = "2025",
+    address = "Albuquerque, New Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.naacl-long.101/",
+    doi = "10.18653/v1/2025.naacl-long.101",
+    pages = "2009--2028",
+    ISBN = "979-8-89176-189-6"
 }
 ```
